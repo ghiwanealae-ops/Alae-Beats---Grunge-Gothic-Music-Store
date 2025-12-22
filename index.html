@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alae Beats - Grunge Gothic Music Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #8b0000;
+            --accent: #4a4a4a;
+            --text: #d3d3d3;
+            --highlight: #ff4500;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(74, 74, 74, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Grunge overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E"),
+                linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.9));
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Impact', sans-serif;
+            font-size: 2.8rem;
+            color: var(--highlight);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 0 var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--highlight), transparent);
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text);
+            text-align: center;
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 25px;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 15px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--highlight);
+            border-bottom: 1px solid var(--highlight);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            background: radial-gradient(circle at center, rgba(139, 0, 0, 0.2) 0%, rgba(26, 26, 26, 0) 70%);
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--text);
+            text-shadow: 3px 3px 0 #000;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background-color: var(--highlight);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--highlight), var(--secondary));
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--highlight);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: rgba(74, 74, 74, 0.3);
+            border: 1px solid var(--accent);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7);
+            border-color: var(--highlight);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(139, 0, 0, 0.2), rgba(255, 69, 0, 0.2));
+        }
+
+        .product-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .product-price {
+            color: var(--highlight);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .buy-button {
+            background-color: transparent;
+            color: var(--text);
+            border: 1px solid var(--secondary);
+            padding: 10px 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .buy-button:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        /* Band Section */
+        .band-section {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .band-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .band-logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--text);
+            text-transform: uppercase;
+            padding: 15px 25px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .band-logo::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 69, 0, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .band-logo:hover::before {
+            left: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 40px 0 20px;
+            border-top: 2px solid var(--secondary);
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--highlight);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--highlight);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: var(--text);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--highlight);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--accent);
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 20px;
+            }
+
+            nav li {
+                margin: 0 10px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .band-logos {
+                gap: 20px;
+            }
+
+            .band-logo {
+                font-size: 1.8rem;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">Alae Beats</div>
+                <div class="tagline">Grunge • Gothic • Underground</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#albums">Albums</a></li>
+                    <li><a href="#merch">Merch</a></li>
+                    <li><a href="#instruments">Instruments</a></li>
+                    <li><a href="#bands">Bands</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Welcome to Alae Beats</h1>
+            <p>Your ultimate destination for grunge, gothic, and alternative music culture. Discover rare albums, band merchandise, and professional instruments inspired by the sounds of Radiohead, Deftones, and other iconic artists.</p>
+            <a href="#albums" class="cta-button">Explore the Collection</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Albums Section -->
+        <section id="albums">
+            <h2 class="section-title">Vinyl & Albums</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="OK Computer- Radiohead (Album cover).jpeg" alt="product image" width="250">
+                        
+                   </div>
+                    <h3 class="product-title">Radiohead - OK Computer</h3>
+                    <p class="product-description">Limited edition vinyl with bonus tracks</p>
+                    <div class="product-price">125DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="🐎.jpeg" alt="product image" width="250">
+                    </div>
+                    <h3 class="product-title">Deftones - White Pony</h3>
+                    <p class="product-description">20th Anniversary remastered edition</p>
+                    <div class="product-price">150DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="télécharger (14).jpeg" width="280">
+                    </div>
+                    <h3 class="product-title">Nirvana - Nevermind</h3>
+                    <p class="product-description">Original 1991 pressing</p>
+                    <div class="product-price">339DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a> 
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="télécharger (15).jpeg" alt="product image" width="250">
+                    </div>
+                    <h3 class="product-title">The Cure - Disintegration</h3>
+                    <p class="product-description">Deluxe box set with rare photos</p>
+                    <div class="product-price">390DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a> 
+                </div>
+            </div>
+        </section>
+
+        <!-- Merchandise Section -->
+        <section id="merch">
+            <h2 class="section-t22itle">Band Merchandise</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="télécharger.jpeg" alt="product image" width="250">
+                    </div>
+                    <h3 class="product-title">Radiohead vintage T-Shirt</h3>
+                    <p class="product-description">Official merchandise, black</p>
+                    <div class="product-price">175DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="Sweat à capuche logo poney blanc Deftones, produits dérivés du groupe, cadeau musique rock, sweat-shirt en métal alternatif, vêtements pour mélomanes, article de concert.jpeg" alt="product image" width="250">
+                    </div>
+                    <h3 class="product-title">Deftones White Pony Hoodie</h3>
+                    <p class="product-description">Limited edition hoodie</p>
+                    <div class="product-price">199DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                    <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="télécharger (16).jpeg"product image" width="250">
+                    </div>
+                    <h3 class="product-title">Grunge Era Beanie</h3>
+                    <p class="product-description">Black with<br> band patch</p>
+                    <div class="product-price">85DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="Rock Music Lover Badges Bands Collection Badges Iron Or Sew On Embroidered Patch.jpeg" alt="product-image" width="250">
+                    </div>
+                    <h3 class="product-title">Band Patch Collection</h3>
+                    <p class="product-description">Set of 10 embroidered patches</p>
+                    <div class="product-price">39DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instruments Section -->
+        <section id="instruments">
+            <h2 class="section-title">Instruments & Gear</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="télécharger (17).jpeg" alt="product image" width="280 px">
+                    </div>
+                    <h3 class="product-title">Gothic Series Guitar</h3>
+                    <p class="product-description">Black matte finish, active pickups</p>
+                    <div class="product-price">2700DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="télécharger (18).jpeg" alt="product-image" width="280 px">
+                    </div>
+                    <h3 class="product-title">Grunge<br> Drum Kit</h3>
+                    <p class="product-description">5-piece with custom finish</p>
+                    <div class="product-price">4999DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="Marshall’s Luke Green on the future of amps.jpeg" alt="product-image" width="280 px">
+                    </div>
+                    <h3 class="product-title">Tube<br>Amplifier</h3>
+                    <p class="product-description">Vintage-style 50W tube amp</p>
+                    <div class="product-price">1299DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="Pedalboard Worship.jpeg" width="280px">
+                    </div>
+                    <h3 class="product-title">Effects Pedalboard</h3>
+                    <p class="product-description">Complete grunge pedal set</p>
+                    <div class="product-price">1100DH</div>
+                    <button class="buy-button">Add to Cart</button>
+                     <a href="https://wa.me/212678774533" target="_blank">
+                        chat with me on whatsApp
+                        </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bands Section -->
+        <section id="bands">
+            <h2 class="section-title">Featured Bands</h2>
+            <div class="band-section">
+                <p>Explore merchandise and music from these iconic bands that define the grunge and gothic sound.</p>
+                <div class="band-logos">
+                    <div class="band-logo">Radiohead</div>
+                    <div class="band-logo">Deftones</div>
+                    <div class="band-logo">Nirvana</div>
+                    <div class="band-logo">The Cure</div>
+                    <div class="band-logo">Nine Inch Nails</div>
+                    <div class="band-logo">Smashing Pumpkins</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Alae Beats</h3>
+                <p>Your source for grunge, gothic, and alternative music culture since 2023.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#albums">Albums</a></li>
+                    <li><a href="#merch">Merchandise</a></li>
+                    <li><a href="#instruments">Instruments</a></li>
+                    <li><a href="#bands">Featured Bands</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Grunge Street, casablanca, ma</li>
+                    <li><i class="fas fa-phone"></i> +212 678774533</li>
+                    <li><i class="fas fa-envelope"></i> ghiwanealae@.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Alae Beats. All rights reserved. | Grunge Gothic Music Store
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.buy-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const productTitle = this.parentElement.querySelector('.product-title').textContent;
+                const productPrice = this.parentElement.querySelector('.product-price').textContent;
+                
+                // Visual feedback
+                const originalText = this.textContent;
+                this.textContent = 'Added!';
+                this.style.backgroundColor = '#8b0000';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.backgroundColor = '';
+                }, 1500);
+                
+                // In a real implementation, you would add to a shopping cart
+                console.log(`Added to cart: ${productTitle} - ${productPrice}`);
+            });
+        });
+    </script>
+</body>
+</html>
